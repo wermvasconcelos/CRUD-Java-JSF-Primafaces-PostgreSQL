@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head><title>Lista de Planetas</title></h:head>
+	<h:body>
+		<h:form id="formulario">
+			<p:panel header="Lista de planetas">
+			
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate/>
+			</p:messages>      
+			
+			<p:dialog header="Contagem" widgetVar="dlg1" minHeight="40">
+   				<h:outputText value="#{universoBean.contar()}" />
+			</p:dialog>
+			
+		    <p:dataTable value="#{universoBean.listar}" var="d">
+	    		<p:column headerText="ID:" visible="F">
+	    			<p:outputLabel value="#{d.id}"/> 
+	    		</p:column>
+		        <p:column headerText="Planeta:">
+		        	<p:outputLabel value="#{d.nome}"/>
+		        </p:column>
+		        <p:column headerText="Existe vida:">
+		      	 	<p:outputLabel value="#{d.existeVida}"/>
+		        </p:column>
+		        <p:column headerText="Data da descoberta:">
+		        	<p:outputLabel value="#{d.dataDescoberta}"/>
+		        </p:column>
+		        <p:column headerText="Descrição do planeta:">
+		        	<p:outputLabel value="#{d.descricao}"/>
+		        </p:column>
+		        <p:column headerText="Editar">
+		        	<p:commandLink action="editar">
+		        		<f:setPropertyActionListener value="#{d}" target="#{universoBean.uni}"/>
+		        		<i class="pi pi-user-edit" style="font-size: 1.5rem"></i>
+		        	</p:commandLink>
+		        </p:column>
+		        <p:column headerText="Excluir">
+		        	<p:commandLink action = "#{universoBean.excluir(d.id)}">
+		        		<i class="pi pi-times-circle"  style="font-size: 1.5rem"></i>
+		        	</p:commandLink>
+		        </p:column>
+		        	
+		    </p:dataTable>
+		    <br></br>
+		    <p:panelGrid columns="2">		
+		        <p:button outcome="index" value="Voltar"/>
+		        <p:commandButton value="Contar" type="button" onclick="PF('dlg1').show();" />
+		  	</p:panelGrid>
+		     
+			</p:panel>
+		</h:form>
+	</h:body>
+</html>
